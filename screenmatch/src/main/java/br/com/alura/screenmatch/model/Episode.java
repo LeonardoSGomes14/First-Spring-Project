@@ -2,15 +2,32 @@ package br.com.alura.screenmatch.model;
 
 
 
+import jakarta.persistence.*;
+
 import java.time.DateTimeException;
 import java.time.LocalDate;
 
+
+@Entity
+@Table(name = "episodes")
+
 public class Episode {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer season;
     private String title;
     private Integer episodeNumber;
     private Double rating;
     private LocalDate launchDate;
+
+
+
+    @ManyToOne
+  private Serie serie;
+
+    public Episode(){}
+
+
 
     public Episode(Integer seasonNumber, EpisodeData episodeDatas) {
         this.season = seasonNumber;
@@ -32,7 +49,13 @@ public class Episode {
     }
 
 
-    //GETTERS
+
+//    GETTERS
+
+
+     public Serie getSerie() {
+            return serie;
+        }
 
     public Integer getSeason() {
         return season;
@@ -56,7 +79,9 @@ public class Episode {
 
     // SETTERS
 
-
+    public void setSerie(Serie serie) {
+        this.serie = serie;
+    }
     public void setSeason(Integer season) {
         this.season = season;
     }
@@ -81,9 +106,10 @@ public class Episode {
     public String toString() {
         return
                 "season = " + season +
-                ", title = '" + title + '\'' +
-                ", episodeNumber = " + episodeNumber +
-                ", rating = " + rating +
-                ", launchDate = " + launchDate;
+                        ", title = '" + title + '\'' +
+                        ", episodeNumber = " + episodeNumber +
+                        ", rating = " + rating +
+                        ", launchDate = " + launchDate;
     }
+
 }
